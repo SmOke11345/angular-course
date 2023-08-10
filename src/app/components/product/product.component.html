@@ -1,0 +1,31 @@
+<div class="py-4 px-6 border rounded flex items-center flex-col mt-2">
+    <!-- []='' только для передачи не динамичных значений   -->
+    <img [src]="products.image" [alt]="products.title" class="w-1/6 mb-2" />
+    <h2 class="mb-2 text-md text-center">{{ products.title }}</h2>
+    <p>
+        Price: <span class="font-bold">{{ products.price | currency : 'RUB' }}</span>
+    </p>
+
+    <!-- Если мы хотим получить какую то динамику, то используем ()=''   -->
+    <!-- ngClass -- используется для добавления какого либо класса к блоку при выполнении условия после двоеточия : -->
+    <button
+        class="border py-2 px-4 rounded bg-blue-500"
+        [ngClass]="{
+            'bg-yellow-500': !details,
+            'bg-blue-500': details,
+        }"
+        (click)="details = !details">
+        {{ details ? 'Hide' : 'Show' }} Details
+    </button>
+
+    <!-- *ngIf -- Начинается с *. структурная директива с помощью которой можно изменять значения шаблона-->
+    <div *ngIf="details">
+        <p>{{ products.description }}</p>
+        <p>
+            Rate:
+            <span [ngStyle]="{ fontWeight: 'bold' }">{{
+                products.rating.rate | number : '1.1-4'
+            }}</span>
+        </p>
+    </div>
+</div>

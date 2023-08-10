@@ -1,1 +1,11 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<!-- Переменные исходят из родительского файла, в котором и добавляются все зависимости и тому подобное -->
+<!-- | или pipe используются для изменения параметров, но только для их отображения, т.е в дальнейшем изменения не сохранятся -->
+<div class="container max-w-2xl mx-auto pt-5">
+    <h1 class="font-bold text-center mt-2">{{ title | titlecase }}</h1>
+
+    <!-- []='' -- Данный синтаксис позволяет работать с динамическими значениями -->
+    <!-- <app-product [products]="products[0]"></app-product> -->
+    <!-- прогоняем полученные значения через цикл, затем отправляем полученные параметры.
+     Если нам нужен index его можно получить :) let i = index-->
+    <app-product *ngFor="let product of products; let i = index" [products]="product"></app-product>
+</div>
