@@ -7,5 +7,13 @@
     <!-- <app-product [products]="products[0]"></app-product> -->
     <!-- прогоняем полученные значения через цикл, затем отправляем полученные параметры.
      Если нам нужен index его можно получить :) let i = index-->
-    <app-product *ngFor="let product of products; let i = index" [products]="product"></app-product>
+    <p *ngIf="loading" class="text-center text-lg">...Loading</p>
+    <!--    <app-product *ngFor="let product of products; let i = index" [products]="product"></app-product>-->
+    <!-- или -->
+    <app-product
+        *ngFor="let product of products$ | async; let i = index"
+        [products]="product"></app-product>
+
+    <!-- Выводим полученные ошибки-->
+    <app-errors></app-errors>
 </div>
