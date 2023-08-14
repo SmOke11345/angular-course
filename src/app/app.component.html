@@ -3,6 +3,14 @@
 <div class="container max-w-2xl mx-auto pt-5">
     <h1 class="font-bold text-center mt-2">{{ title | titlecase }}</h1>
 
+    <!-- Создание фильтрации-->
+    <!-- ngModel -- задаем переменную которая будет записывать в себя значения инпута-->
+    <input
+        class="mb-2 border py-2 px-4 w-full"
+        type="text"
+        placeholder="Filter products.."
+        [(ngModel)]="filter" />
+
     <!-- []='' -- Данный синтаксис позволяет работать с динамическими значениями -->
     <!-- <app-product [products]="products[0]"></app-product> -->
     <!-- прогоняем полученные значения через цикл, затем отправляем полученные параметры.
@@ -10,10 +18,25 @@
     <p *ngIf="loading" class="text-center text-lg">...Loading</p>
     <!--    <app-product *ngFor="let product of products; let i = index" [products]="product"></app-product>-->
     <!-- или -->
-    <app-product
-        *ngFor="let product of products$ | async; let i = index"
-        [products]="product"></app-product>
+    <div *ngIf="products$ | async as products">
+        <app-product
+            *ngFor="let product of products | filterProducts : filter; let i = index"
+            [products]="product"></app-product>
+    </div>
 
     <!-- Выводим полученные ошибки-->
     <app-errors></app-errors>
+
+    <!-- Открытие модального окна -->
+    <button
+        (click)="modalService.openModal()"
+        class="rounded-full h-[35px] w-[35px] flex justify-center items-end bg-red-700 font-bold text-white fixed right-5 bottom-5 py-2 px-4">
+        +
+    </button>
 </div>
+
+<!-- Модальное окно -->
+<!-- async нужен для подписки на stream -->
+<app-modal *ngIf="modalService.isVisible$ | async" title="Create New Product">
+    <app-create-product></app-create-product>
+</app-modal>

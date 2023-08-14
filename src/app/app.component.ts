@@ -7,6 +7,11 @@ import { ProductComponent } from './components/product/product.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { ErrorsComponent } from './components/errors/errors.component';
+import { FormsModule } from '@angular/forms';
+import { FilterProductsPipe } from './pipes/filter-products.pipe';
+import { ModalComponent } from './components/modal/modal.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ModalService } from './services/modal.service';
 
 @Component({
     standalone: true,
@@ -19,6 +24,10 @@ import { ErrorsComponent } from './components/errors/errors.component';
         NgIf,
         AsyncPipe,
         ErrorsComponent,
+        FormsModule,
+        FilterProductsPipe,
+        ModalComponent,
+        CreateProductComponent,
     ],
 
     // Нужно добавлять провайдер для связи компонента с сервисом
@@ -36,8 +45,11 @@ export class AppComponent implements OnInit {
 
     loading = false;
 
+    // Создание фильтрации
+    filter = '';
+
     // Подключение сервиса
-    constructor(private productsService: ProductsServices) {}
+    constructor(private productsService: ProductsServices, public modalService: ModalService) {}
 
     ngOnInit(): void {
         this.loading = true;

@@ -1,0 +1,21 @@
+<!-- FormControlName -- нужен для связи -->
+<form [formGroup]="form" (ngSubmit)="onsubmit()">
+    <input
+        type="text"
+        formControlName="title"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product name"
+        appFocus />
+
+    <!-- Touched -- если мы уже что то вписали в input, еще больше свойств можно посмотреть в FormGroup переменой form -->
+    <p
+        *ngIf="title.touched && title.errors && title.errors['minlength']"
+        class="text-red-400 font-medium mb-2">
+        Please fill title field width min length. Now {{ title.value.length }} from 6
+    </p>
+    <button
+        type="submit"
+        class="bg-red-600 hover:bg-red-400 hover:text-white transition ease-in-out duration-500 delay-100 border w-full py-2 px-4 mb-2">
+        Create
+    </button>
+</form>
