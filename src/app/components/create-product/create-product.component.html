@@ -7,11 +7,43 @@
         placeholder="Product name"
         appFocus />
 
+    <input
+        type="text"
+        formControlName="price"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product price" />
+
+    <textarea
+        type="text"
+        formControlName="description"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product description">
+    </textarea>
+
+    <input
+        type="text"
+        formControlName="category"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product category" />
+
+    <input
+        type="text"
+        formControlName="image"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product image" />
+
+    <input
+        type="text"
+        formControlName="rating"
+        class="border w-full py-2 px-4 mb-2"
+        placeholder="Product rating" />
+
     <!-- Touched -- если мы уже что то вписали в input, еще больше свойств можно посмотреть в FormGroup переменой form -->
     <p
         *ngIf="title.touched && title.errors && title.errors['minlength']"
         class="text-red-400 font-medium mb-2">
-        Please fill title field width min length. Now {{ title.value.length }} from 6
+        Please fill title field width min length. Now
+        {{ title.value.length }} from 6
     </p>
     <button
         type="submit"

@@ -1,0 +1,39 @@
+<!-- Переменные исходят из родительского файла, в котором и добавляются все зависимости и тому подобное -->
+<!-- | или pipe используются для изменения параметров, но только для их отображения, т.е в дальнейшем изменения не сохранятся -->
+<h1 class="font-bold text-center mt-2">{{ title | titlecase }}</h1>
+
+<!-- Создание фильтрации-->
+<!-- ngModel -- задаем переменную которая будет записывать в себя значения инпута-->
+<input
+    class="mb-2 border py-2 px-4 w-full"
+    type="text"
+    placeholder="Filter products.."
+    [(ngModel)]="filter" />
+
+<!-- []='' -- Данный синтаксис позволяет работать с динамическими значениями -->
+<!-- <app-product-page [products]="products[0]"></app-product-page> -->
+<!-- прогоняем полученные значения через цикл, затем отправляем полученные параметры.
+ Если нам нужен index его можно получить :) let i = index-->
+<p *ngIf="loading" class="text-center text-lg">...Loading</p>
+<!--    <app-product-page *ngFor="let product-page of products; let i = index" [products]="product-page"></app-product-page>-->
+<!-- или -->
+<div *ngIf="products$ | async as products">
+    <app-product
+        *ngFor="
+            let product of products | filterProducts : filter;
+            let i = index
+        "
+        [products]="product"></app-product>
+</div>
+
+<!-- Открытие модального окна -->
+<button
+    (click)="modalService.openModal()"
+    class="rounded-full h-[35px] w-[35px] flex justify-center items-end bg-red-700 font-bold text-white fixed right-5 bottom-5 py-2 px-4">
+    +
+</button>
+<!-- Модальное окно -->
+<!-- async нужен для подписки на stream -->
+<app-modal *ngIf="modalService.isVisible$ | async" title="Create New Product">
+    <app-create-product></app-create-product>
+</app-modal>

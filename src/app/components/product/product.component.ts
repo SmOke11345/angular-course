@@ -17,7 +17,14 @@ import {
 
     selector: 'app-product',
     templateUrl: './product.component.html',
-    imports: [NgOptimizedImage, DecimalPipe, CurrencyPipe, NgIf, NgClass, NgStyle],
+    imports: [
+        NgOptimizedImage,
+        DecimalPipe,
+        CurrencyPipe,
+        NgIf,
+        NgClass,
+        NgStyle,
+    ],
 })
 export class ProductComponent {
     // @Input() -- используется для получения параметра.
